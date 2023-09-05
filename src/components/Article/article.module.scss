@@ -1,0 +1,84 @@
+@import '../../styles/variables.scss';
+
+.article{
+    width: 100%;
+    background-color: $white;
+    margin-top: 15px;
+    box-shadow: $shadow;
+    padding: 15px;
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__wrapperTitle {
+        display: block;
+    }
+
+    &__title {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        a {
+            text-decoration: none;
+            font-size: 20px;
+            color: $blue;
+        }
+
+        button {
+            border: none;
+            background: url('../../img/like.svg');
+            width: 16px;
+            height: 16px;
+
+            &:hover {
+                background: url('../../img/active-like.svg');
+                cursor: pointer;
+            }
+        }
+    }
+
+    &__wrapperLikes {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    &__likes {
+        font-size: 12px;
+    }
+
+    &__wrapperAuthor {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    &__author {
+        &__name{
+            font-size: 18px;
+            color: $header-text-color
+        }
+        &__date{
+            font-size: 12px;
+            color: $tag-text-color
+        }
+    }
+
+    &__avatar{
+        width: 46px;
+        height: 46px;
+    }
+
+    &__text {
+        max-width: 66%;
+        font-size: 12px;
+        line-height: 22px;
+    }
+
+    &__body{
+        margin-top: 20px;
+    }
+}

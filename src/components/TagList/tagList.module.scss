@@ -1,0 +1,16 @@
+@import '../../styles/variables.scss';
+
+.tagList{
+    margin-top: 5px;
+    display: flex;
+    list-style: none;
+    align-items: center;
+    gap: 10px;
+
+    li {
+        border: 1px solid $tag-text-color;
+        border-radius: 2px;
+        padding: 1px 3px;
+        font-size: 12px;
+    }
+}

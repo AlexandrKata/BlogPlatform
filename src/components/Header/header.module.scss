@@ -1,0 +1,36 @@
+@import '../../styles/variables.scss';
+
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $white;
+    height: 80px;
+    padding: 0 15px;
+    position: sticky;
+    box-shadow: $shadow;
+
+    a {
+        text-decoration: none;
+        color: $header-text-color;
+        font-size: 18px;
+        font-weight: 500;
+        &:nth-child(2) {
+            color: $green;
+        }
+    }
+
+    &__authorization {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 40px
+    }
+
+    &__signUp {
+        border: 1px solid $green;
+        border-radius: 5px;
+        padding: 10px;
+    }
+}

@@ -11,14 +11,26 @@
     position: sticky;
     box-shadow: $shadow;
 
-    a {
+    &__link {
         text-decoration: none;
         color: $header-text-color;
         font-size: 18px;
         font-weight: 500;
-        &:nth-child(2) {
-            color: $green;
+        &:hover {
+            text-decoration: underline;
         }
+        img {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+        }
+    }
+
+    &__profile{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
     }
 
     &__authorization {
@@ -29,7 +41,29 @@
     }
 
     &__signUp {
+        color: $green;
         border: 1px solid $green;
+        border-radius: 5px;
+        padding: 10px;
+    }
+
+    &__login {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+    }
+
+    &__create {
+        font-size: 14px;
+        color: $green;
+        border-radius: 5px;
+        border: 1px solid $green;
+        padding: 5px;
+    }
+
+    &__logOut {
+        border: 1px solid $header-text-color;
         border-radius: 5px;
         padding: 10px;
     }

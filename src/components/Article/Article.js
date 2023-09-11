@@ -2,6 +2,7 @@ import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 
+import plug from '../../img/avatar.png';
 import { TagList } from '../TagList';
 
 import classes from './article.module.scss';
@@ -34,7 +35,7 @@ export const Article = ({ item, markdown = false }) => {
               <div className={classes.article__author__name}>{item.author.username}</div>
               <div className={classes.article__author__date}>{formatDate(item.createdAt)} </div>
             </div>
-            <img src={item.author.image} className={classes.article__avatar} />
+            <img src={item.author.image ? item.author.image : plug} className={classes.article__avatar} />
           </div>
         </header>
         <p className={classes.article__text}>{item.description}</p>

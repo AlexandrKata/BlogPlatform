@@ -10,7 +10,9 @@ import { Spinner } from '../Spinner';
 import { SignUp } from '../SignUp';
 import { SignIn } from '../SignIn';
 import { EditProfile } from '../EditProfile';
-import { fetchArticles } from '../../redux/articlesActions';
+import { ArticlePageNew } from '../ArticlePageNew';
+import { ArticlePageEdit } from '../ArticlePageEdit';
+import { fetchArticlesGet } from '../../redux/articlesActions';
 
 export const App = () => {
   const { page, offset, error, loading } = useSelector((state) => state.articlesReducer);
@@ -18,7 +20,7 @@ export const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchArticles(offset));
+    dispatch(fetchArticlesGet(offset));
   }, [page]);
 
   return (
@@ -34,7 +36,9 @@ export const App = () => {
             <Route path={'/articles/:slug'} element={<ArticlePage />} />
             <Route path={'/sign-in'} element={!user ? <SignIn /> : <Navigate to={'/'} />}></Route>
             <Route path={'/sign-up'} element={!user ? <SignUp /> : <Navigate to={'/'} />}></Route>
-            <Route path={'/profile'} element={<EditProfile />}></Route>
+            <Route path={'/profile'} element={user ? <EditProfile /> : <Navigate to={'/sign-in'} />}></Route>
+            <Route path={'/new-article'} element={user ? <ArticlePageNew /> : <Navigate to={'/sign-in'} />}></Route>
+            <Route path={'/articles/:slug/edit'} element={<ArticlePageEdit />}></Route>
           </Routes>
         </main>
       </BrowserRouter>

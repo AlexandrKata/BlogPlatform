@@ -15,7 +15,6 @@ export const Pagination_ = () => {
         components: {
           Pagination: {
             itemActiveBg: 'rgba(24, 144, 255, 1)',
-            itemActiveColor: 'red',
           },
         },
       }}

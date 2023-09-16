@@ -1,8 +1,8 @@
 @import '../../styles/variables.scss';
 
-.profile{
-
-    max-width: 384px;
+.articlePageNew {
+ 
+    max-width: 938px;
     width: 100%;
     border-radius: 5px;
     background-color: $white;
@@ -11,10 +11,10 @@
     box-shadow: $shadow;
     font-family: 'Roboto', sans-serif;
     margin-top: 20px;
-
+    
     &__title {
         text-align: center;
         font-size: 20px;
     }
-    
 }
+

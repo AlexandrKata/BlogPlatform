@@ -57,19 +57,26 @@
     }
 
     &__author {
-        &__name{
+        &__name {
             font-size: 18px;
             color: $header-text-color
         }
-        &__date{
+        &__date {
             font-size: 12px;
             color: $tag-text-color
         }
     }
 
-    &__avatar{
+    &__avatar {
+        border-radius: 50%;
         width: 46px;
         height: 46px;
+    }
+
+    &__wrapper {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
     }
 
     &__text {
@@ -78,7 +85,34 @@
         line-height: 22px;
     }
 
-    &__body{
+    &__body {
         margin-top: 20px;
+    }
+
+    &__wrapperBtn {
+        display: flex;
+        gap: 15px;
+    }
+
+    &__btn {
+        background-color: $white;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+
+        &_delete {
+            width: 78px;
+            height: 30px;
+            border: 1px solid $red;
+            color: $red;
+        }
+
+        &_edit {
+            width: 65px;
+            height: 30px;
+            border: 1px solid $green;
+            color: $green;
+        }
     }
 }

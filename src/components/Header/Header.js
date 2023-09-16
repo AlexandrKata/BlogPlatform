@@ -28,7 +28,9 @@ export const Header = () => {
       </span>
       {user ? (
         <div className={classes.header__login}>
-          <Link className={[classes.header__link, classes.header__create].join(' ')}>Create article</Link>
+          <Link className={[classes.header__link, classes.header__create].join(' ')} to={'/new-article'}>
+            Create article
+          </Link>
           <Link className={[classes.header__link, classes.header__profile].join(' ')} to="/profile">
             {user.username} <img src={user.image || avatar} />
           </Link>

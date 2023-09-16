@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { loadLocalStorage, setLocalStorage, clearLocalStorage } from '../components/localStorage/localStorage';
+import { loadLocalStorage, setLocalStorage, clearLocalStorage } from '../localStorage/localStorage';
 
 import { fetchLoginPost, fetchCreateUsersPost } from './userActions';
 
@@ -23,6 +23,7 @@ const userSlice = createSlice({
     },
     updateUser: (state, action) => {
       state.user = action.payload;
+      setLocalStorage('user', action.payload);
     },
   },
   extraReducers: {
@@ -44,5 +45,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { logOut, onIsAgree, updateUser } = userSlice.actions;
+export const { logOut, onIsAgree, updateUser, addTag, deleteTag, nextId } = userSlice.actions;
 export const userReducer = userSlice.reducer;

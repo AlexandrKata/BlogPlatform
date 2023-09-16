@@ -19,5 +19,59 @@ const getArticle = async (slug, { rejectWithValue }) => {
   }
 };
 
-export const fetchArticles = createAsyncThunk('articles/fetchArticles', getArticles);
-export const fetchArticle = createAsyncThunk('articles/fetchArticle', getArticle);
+const postArticle = async (values, { rejectWithValue }) => {
+  try {
+    const article = await axios.post(
+      'https://blog.kata.academy/api/articles',
+      {
+        article: {
+          title: values.title,
+          description: values.description,
+          body: values.body,
+          tagList: values.tagList,
+        },
+      },
+      { headers: { Authorization: `Bearer ${values.token}` } }
+    );
+    return article.data;
+  } catch (e) {
+    return rejectWithValue(e);
+  }
+};
+
+const putArticle = async (values, { rejectWithValue }) => {
+  try {
+    const article = await axios.put(
+      `https://blog.kata.academy/api/articles/${values.slug}`,
+      {
+        article: {
+          title: values.title,
+          description: values.description,
+          body: values.body,
+          tagList: values.tagList,
+        },
+      },
+      { headers: { Authorization: `Bearer ${values.token}` } }
+    );
+    return article.data;
+  } catch (e) {
+    return rejectWithValue(e.response);
+  }
+};
+
+const deleteArticle = async (values, { rejectWithValue }) => {
+  try {
+    const article = await axios.delete(`https://blog.kata.academy/api/articles/${values.slug}`, {
+      headers: { Authorization: `Bearer ${values.token}` },
+    });
+    return article.data;
+  } catch (e) {
+    return rejectWithValue(e.response);
+  }
+};
+
+export const fetchArticlesGet = createAsyncThunk('articles/fetchArticlesGet', getArticles);
+export const fetchArticleGet = createAsyncThunk('articles/fetchArticleGet', getArticle);
+export const fetchArticlePost = createAsyncThunk('articles/fetchArticlePost', postArticle);
+export const fetchArticlePut = createAsyncThunk('articles/fetchArticlePut', putArticle);
+export const fetchArticleDelete = createAsyncThunk('articles/fetchArticleDelete', deleteArticle);

@@ -3,8 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
 import { fetchLoginPost } from '../../redux/userActions';
-
-import classes from './signIn.module.scss';
+import classes from '../../styles/modal.module.scss';
 
 export const SignIn = () => {
   const { loginErrors } = useSelector((state) => state.userReducer);
@@ -21,10 +20,10 @@ export const SignIn = () => {
   };
 
   return (
-    <div className={classes.signIn}>
-      <h2 className={classes.signIn__title}>Sign In</h2>
-      <form className="form" onSubmit={handleSubmit(onSubmit)}>
-        <div className="form__wrapper">
+    <div className={classes.modal}>
+      <h2 className={classes.modal__title}>Sign In</h2>
+      <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+        <div className={classes.form__wrapper}>
           <label htmlFor="email">Email address</label>
           <input
             {...register('email', {
@@ -35,15 +34,19 @@ export const SignIn = () => {
                 message: 'Not correct email',
               },
             })}
-            className={!errors.email && !loginErrors.email ? 'form__field' : 'form__field form__field__error'}
+            className={
+              !errors.email && !loginErrors.email
+                ? classes.form__field
+                : [classes.form__field, classes.form__field__error].join(' ')
+            }
             id="email"
             placeholder="Email address"
           ></input>
           {errors.email || loginErrors.email ? (
-            <p className="form__error">{loginErrors.email || errors.email.message}</p>
+            <p className={classes.form__error}>{loginErrors.email || errors.email.message}</p>
           ) : null}
         </div>
-        <div className="form__wrapper">
+        <div className={classes.form__wrapper}>
           <label htmlFor="password">Password</label>
           <input
             {...register('password', {
@@ -51,16 +54,20 @@ export const SignIn = () => {
               minLength: { value: 6, message: 'Min length is 6' },
               maxLength: { value: 40, message: 'Max length is 40' },
             })}
-            className={!errors.password && !loginErrors.password ? 'form__field' : 'form__field form__field__error'}
+            className={
+              !errors.password && !loginErrors.password
+                ? classes.form__field
+                : [classes.form__field, classes.form__field__error].join(' ')
+            }
             id="password"
             placeholder="Password"
           ></input>
           {errors.password || loginErrors.password ? (
-            <p className="form__error">{loginErrors.password || errors.password.message}</p>
+            <p className={classes.form__error}>{loginErrors.password || errors.password.message}</p>
           ) : null}
         </div>
-        <button className="form__button">Login</button>
-        <div className="form__link">
+        <button className={classes.form__button}>Login</button>
+        <div className={classes.form__link}>
           <span>Don’t have an account?</span> <Link to={'/sign-up'}>Sign Up</Link>
         </div>
       </form>

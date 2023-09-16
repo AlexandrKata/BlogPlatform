@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { fetchArticle, fetchArticles } from './articlesActions';
+import { fetchArticleGet, fetchArticlesGet, fetchArticlePost, fetchArticleDelete } from './articlesActions';
 
 const initialState = {
   articles: [],
@@ -21,19 +21,20 @@ export const articlesSlice = createSlice({
       state.offset = action.payload * 5 - 5;
     },
     clearError: (state) => {
+      state.article = null;
       state.error = null;
     },
   },
   extraReducers: {
-    [fetchArticles.pending]: (state) => {
+    [fetchArticlesGet.pending]: (state) => {
       state.loading = true;
     },
-    [fetchArticles.fulfilled]: (state, action) => {
+    [fetchArticlesGet.fulfilled]: (state, action) => {
       state.articles = action.payload.articles;
       state.totalPages = Math.floor(action.payload.articlesCount / 5);
       state.loading = false;
     },
-    [fetchArticles.rejected]: (state, action) => {
+    [fetchArticlesGet.rejected]: (state, action) => {
       state.loading = false;
       state.error = {
         data: action.payload.message,
@@ -41,18 +42,38 @@ export const articlesSlice = createSlice({
       };
     },
 
-    [fetchArticle.pending]: (state) => {
+    [fetchArticleGet.pending]: (state) => {
       state.loading = true;
     },
-    [fetchArticle.fulfilled]: (state, action) => {
+    [fetchArticleGet.fulfilled]: (state, action) => {
       state.loading = false;
       state.article = action.payload.article;
       if (state.article) {
         state.error = null;
       }
     },
-    [fetchArticle.rejected]: (state, action) => {
+    [fetchArticleGet.rejected]: (state, action) => {
       state.loading = false;
+      state.error = {
+        data: action.payload.data,
+        status: action.payload.status,
+      };
+    },
+
+    [fetchArticlePost.fulfilled]: (state, action) => {
+      state.article = action.payload.article;
+    },
+    [fetchArticlePost.rejected]: (state, action) => {
+      state.error = {
+        data: action.payload.data,
+        status: action.payload.status,
+      };
+    },
+
+    [fetchArticleDelete.fulfilled]: (state) => {
+      state.article = null;
+    },
+    [fetchArticleDelete.rejected]: (state, action) => {
       state.error = {
         data: action.payload.data,
         status: action.payload.status,

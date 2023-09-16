@@ -2,6 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const createNewUser = async (values, { rejectWithValue }) => {
+  console.log(values);
   try {
     const user = await axios.post('https://blog.kata.academy/api/users', {
       user: {

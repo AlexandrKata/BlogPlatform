@@ -1,6 +1,7 @@
 @import '../../styles/variables.scss';
 
 .formArticle {
+    margin: 0;
 
     &__btn {
         width: 100%;
@@ -75,6 +76,7 @@
 }
 
 .tag {
+    margin: 0;
 
     &__wrapper {
         display:  flex;

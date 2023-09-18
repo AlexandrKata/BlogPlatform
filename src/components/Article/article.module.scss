@@ -26,17 +26,22 @@
             font-size: 20px;
             color: $blue;
         }
+    }
 
-        button {
-            border: none;
-            background: url('../../img/like.svg');
-            width: 16px;
-            height: 16px;
+    &__btnLike {
+        border: none;
+        background: url('../../img/like.svg');
+        width: 16px;
+        height: 16px;
 
-            &:hover {
-                background: url('../../img/active-like.svg');
-                cursor: pointer;
-            }
+        &:hover {
+            background: url('../../img/active-like.svg');
+            cursor: pointer;
+        }
+
+        &__active {
+            background: url('../../img/active-like.svg');
+            cursor: pointer;
         }
     }
 
@@ -57,6 +62,8 @@
     }
 
     &__author {
+        margin: 0;
+        
         &__name {
             font-size: 18px;
             color: $header-text-color

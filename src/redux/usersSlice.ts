@@ -33,22 +33,23 @@ const userSlice = createSlice({
       setLocalStorage('user', action.payload)
     },
   },
-  extraReducers: {
-    [fetchLoginPost.fulfilled.type]: (state, action) => {
-      state.user = action.payload.user
-      state.loginErrors = { email: '', password: '' }
-      setLocalStorage('user', action.payload.user)
-    },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchLoginPost.fulfilled, (state, action) => {
+        state.user = action.payload
+        state.loginErrors = { email: '', password: '' }
+        setLocalStorage('user', action.payload)
+      })
+      .addCase(fetchLoginPost.rejected, (state, action) => {
+        console.log(state, action)
+        // state.loginErrors.email = action.payload.data.errors['email or password']
+        // state.loginErrors.password = action.payload.data.errors['email or password']
+      })
 
-    [fetchLoginPost.rejected.type]: (state, action) => {
-      state.loginErrors.email = action.payload.data.errors['email or password']
-      state.loginErrors.password = action.payload.data.errors['email or password']
-    },
-
-    [fetchCreateUsersPost.fulfilled.type]: (state, action) => {
-      state.user = action.payload
-      setLocalStorage('user', action.payload)
-    },
+      .addCase(fetchCreateUsersPost.fulfilled, (state, action) => {
+        state.user = action.payload
+        setLocalStorage('user', action.payload)
+      })
   },
 })
 

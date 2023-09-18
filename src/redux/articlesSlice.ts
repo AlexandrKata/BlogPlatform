@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
 import { IArticle } from '../model/IArticle'
 
@@ -7,6 +7,7 @@ import {
   fetchArticlesGet,
   fetchArticlePost,
   fetchArticleDelete,
+  fetchArticlePut,
   fetchLikeArticle,
   fetchUnLikeArticle,
 } from './articlesActions'
@@ -18,7 +19,7 @@ export interface IinitialState {
   page: number
   totalPages: number
   offset: number
-  error: { data: string; name: string } | null
+  error: string[] | undefined
   loading: boolean
   isRegistered: boolean
 }
@@ -29,7 +30,7 @@ const initialState: IinitialState = {
   page: 1,
   totalPages: 1,
   offset: 0,
-  error: null,
+  error: undefined,
   loading: true,
   isRegistered: false,
 }
@@ -38,98 +39,90 @@ export const articlesSlice = createSlice({
   initialState,
   name: 'articles',
   reducers: {
-    setPage: (state, action) => {
+    setPage: (state, action: PayloadAction<number>) => {
       state.page = action.payload
       state.offset = action.payload * 5 - 5
     },
     clearError: (state) => {
       state.article = null
-      state.error = null
+      state.error = undefined
     },
   },
-  extraReducers: {
-    [fetchArticlesGet.pending.type]: (state) => {
-      state.loading = true
-    },
-    [fetchArticlesGet.fulfilled.type]: (state, action) => {
-      state.articles = action.payload.articles
-      state.totalPages = Math.floor(action.payload.articlesCount / 5)
-      state.loading = false
-    },
-    [fetchArticlesGet.rejected.type]: (state, action) => {
-      state.loading = false
-      state.error = {
-        data: action.error.message,
-        name: action.error.name,
-      }
-    },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchArticlesGet.pending, (state) => {
+        state.loading = true
+      })
+      .addCase(fetchArticlesGet.fulfilled, (state, action) => {
+        state.articles = action.payload.articles
+        state.totalPages = Math.floor(action.payload.articlesCount / 5)
+        state.loading = false
+      })
+      .addCase(fetchArticlesGet.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
 
-    [fetchArticleGet.pending.type]: (state) => {
-      state.loading = true
-    },
-    [fetchArticleGet.fulfilled.type]: (state, action) => {
-      state.loading = false
-      state.article = action.payload.article
-      if (state.article) {
-        state.error = null
-      }
-    },
-    [fetchArticleGet.rejected.type]: (state, action) => {
-      state.loading = false
-      state.error = {
-        data: action.error.message,
-        name: action.error.name,
-      }
-    },
+      .addCase(fetchArticleGet.pending, (state) => {
+        state.loading = true
+      })
+      .addCase(fetchArticleGet.fulfilled, (state, action) => {
+        state.loading = false
+        state.article = action.payload
+        if (state.article) {
+          state.error = undefined
+        }
+      })
+      .addCase(fetchArticleGet.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
 
-    [fetchArticlePost.fulfilled.type]: (state, action) => {
-      state.article = action.payload.article
-    },
-    [fetchArticlePost.rejected.type]: (state, action) => {
-      state.error = {
-        data: action.error.message,
-        name: action.error.name,
-      }
-    },
+      .addCase(fetchArticlePost.fulfilled, (state, action) => {
+        state.article = action.payload
+      })
+      .addCase(fetchArticlePost.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
 
-    [fetchArticleDelete.fulfilled.type]: (state) => {
-      state.article = null
-    },
-    [fetchArticleDelete.rejected.type]: (state, action) => {
-      state.error = {
-        data: action.error.message,
-        name: action.error.name,
-      }
-    },
+      .addCase(fetchArticleDelete.fulfilled, (state) => {
+        state.article = null
+      })
+      .addCase(fetchArticleDelete.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
 
-    [fetchLikeArticle.fulfilled.type]: (state, action) => {
-      state.article = action.payload.article
-    },
-    [fetchLikeArticle.rejected.type]: (state, action) => {
-      state.error = {
-        data: action.error.message,
-        name: action.error.name,
-      }
-    },
+      .addCase(fetchArticlePut.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
 
-    [fetchUnLikeArticle.fulfilled.type]: (state, action) => {
-      state.article = action.payload.article
-    },
-    [fetchUnLikeArticle.rejected.type]: (state, action) => {
-      state.error = {
-        data: action.error.message,
-        name: action.error.name,
-      }
-    },
+      .addCase(fetchLikeArticle.fulfilled, (state, action) => {
+        state.article = action.payload
+      })
+      .addCase(fetchLikeArticle.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
 
-    [fetchCreateUsersPost.fulfilled.type]: (state) => {
-      state.isRegistered = false
-    },
-    [fetchCreateUsersPost.rejected.type]: (state, action) => {
-      if (action.error.message === 'Request failed with status code 422') {
-        state.isRegistered = true
-      }
-    },
+      .addCase(fetchUnLikeArticle.fulfilled, (state, action) => {
+        state.article = action.payload
+      })
+      .addCase(fetchUnLikeArticle.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
+
+      .addCase(fetchCreateUsersPost.fulfilled, (state) => {
+        state.isRegistered = false
+      })
+      .addCase(fetchCreateUsersPost.rejected, (state, action) => {
+        if (action.error.message === 'Request failed with status code 422') {
+          state.isRegistered = true
+        }
+      })
   },
 })
 

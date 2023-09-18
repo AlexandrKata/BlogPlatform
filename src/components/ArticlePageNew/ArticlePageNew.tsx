@@ -42,12 +42,12 @@ export const ArticlePageNew = () => {
   }
 
   const goNewArticle = async (data: any) => {
-    let slug = ''
+    let article: any
     await dispatch(fetchArticlePost(data)).then((response) => {
-      slug = response.payload.article.slug
+      article = response?.payload
     })
-    await dispatch(fetchArticleGet({ slug: slug })).then(() => {
-      navigate(`/articles/${slug}`)
+    await dispatch(fetchArticleGet({ slug: article?.slug })).then(() => {
+      navigate(`/articles/${article.slug}`)
     })
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     await dispatch(fetchArticlesGet({ ...{ offset: 0 }, ...{ token: user?.token } })).then(() => {})

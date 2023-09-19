@@ -41,9 +41,10 @@ const userSlice = createSlice({
         setLocalStorage('user', action.payload)
       })
       .addCase(fetchLoginPost.rejected, (state, action) => {
-        console.log(state, action)
-        // state.loginErrors.email = action.payload.data.errors['email or password']
-        // state.loginErrors.password = action.payload.data.errors['email or password']
+        if (action.payload?.[0] === 'Request failed with status code 422') {
+          state.loginErrors.email = 'email address or password is not correct'
+          state.loginErrors.password = 'email address or password is not correct'
+        }
       })
 
       .addCase(fetchCreateUsersPost.fulfilled, (state, action) => {

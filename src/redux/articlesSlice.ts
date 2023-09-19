@@ -119,7 +119,8 @@ export const articlesSlice = createSlice({
         state.isRegistered = false
       })
       .addCase(fetchCreateUsersPost.rejected, (state, action) => {
-        if (action.error.message === 'Request failed with status code 422') {
+        console.log(action)
+        if (action.payload?.[0] === 'Request failed with status code 422') {
           state.isRegistered = true
         }
       })

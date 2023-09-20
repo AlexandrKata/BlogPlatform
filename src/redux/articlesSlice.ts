@@ -1,6 +1,7 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
 import { IArticle } from '../model/IArticle'
+import { IError } from '../model/IError'
 
 import {
   fetchArticleGet,
@@ -19,7 +20,7 @@ export interface IinitialState {
   page: number
   totalPages: number
   offset: number
-  error: string[] | undefined
+  error: IError | undefined
   loading: boolean
   isRegistered: boolean
 }
@@ -59,6 +60,7 @@ export const articlesSlice = createSlice({
         state.loading = false
       })
       .addCase(fetchArticlesGet.rejected, (state, action) => {
+        console.log(state, action)
         state.loading = false
         state.error = action.payload
       })
@@ -120,7 +122,7 @@ export const articlesSlice = createSlice({
       })
       .addCase(fetchCreateUsersPost.rejected, (state, action) => {
         console.log(action)
-        if (action.payload?.[0] === 'Request failed with status code 422') {
+        if (action.payload?.message === 'Request failed with status code 422') {
           state.isRegistered = true
         }
       })

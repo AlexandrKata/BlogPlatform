@@ -3,6 +3,7 @@ import axios from 'axios'
 
 import { IArticle } from '../model/IArticle'
 import { IArticles } from '../model/IArticles'
+import { IError } from '../model/IError'
 
 interface Props {
   offset?: number
@@ -10,7 +11,7 @@ interface Props {
   slug?: string
 }
 
-export const fetchArticlesGet = createAsyncThunk<IArticles, Props, { rejectValue: string[] }>(
+export const fetchArticlesGet = createAsyncThunk<IArticles, Props, { rejectValue: IError }>(
   'articles/fetchArticlesGet',
   async function (props, { rejectWithValue }) {
     try {
@@ -19,12 +20,12 @@ export const fetchArticlesGet = createAsyncThunk<IArticles, Props, { rejectValue
       })
       return response.data
     } catch (e) {
-      return rejectWithValue([(e as Error).message, (e as Error).name])
+      return rejectWithValue({ message: (e as Error).message.toString(), name: (e as Error).name.toString() })
     }
   }
 )
 
-export const fetchArticleGet = createAsyncThunk<IArticle, Props, { rejectValue: string[] }>(
+export const fetchArticleGet = createAsyncThunk<IArticle, Props, { rejectValue: IError }>(
   'articles/fetchArticleGet',
   async function (props, { rejectWithValue }) {
     try {
@@ -33,12 +34,12 @@ export const fetchArticleGet = createAsyncThunk<IArticle, Props, { rejectValue: 
       })
       return response.data.article
     } catch (e) {
-      return rejectWithValue([(e as Error).message, (e as Error).name])
+      return rejectWithValue({ message: (e as Error).message.toString(), name: (e as Error).name.toString() })
     }
   }
 )
 
-export const fetchArticlePost = createAsyncThunk<IArticle, Props, { rejectValue: string[] }>(
+export const fetchArticlePost = createAsyncThunk<IArticle, Props, { rejectValue: IError }>(
   'articles/fetchArticlePost',
   async function (props, { rejectWithValue }) {
     try {
@@ -51,12 +52,12 @@ export const fetchArticlePost = createAsyncThunk<IArticle, Props, { rejectValue:
       )
       return response.data.article
     } catch (e) {
-      return rejectWithValue([(e as Error).message, (e as Error).name])
+      return rejectWithValue({ message: (e as Error).message.toString(), name: (e as Error).name.toString() })
     }
   }
 )
 
-export const fetchArticleDelete = createAsyncThunk<unknown, Props, { rejectValue: string[] }>(
+export const fetchArticleDelete = createAsyncThunk<unknown, Props, { rejectValue: IError }>(
   'articles/fetchArticleDelete',
   async function (props, { rejectWithValue }) {
     try {
@@ -65,12 +66,12 @@ export const fetchArticleDelete = createAsyncThunk<unknown, Props, { rejectValue
       })
       return response.data
     } catch (e) {
-      return rejectWithValue([(e as Error).message, (e as Error).name])
+      return rejectWithValue({ message: (e as Error).message.toString(), name: (e as Error).name.toString() })
     }
   }
 )
 
-export const fetchArticlePut = createAsyncThunk<IArticle, Props, { rejectValue: string[] }>(
+export const fetchArticlePut = createAsyncThunk<IArticle, Props, { rejectValue: IError }>(
   'articles/fetchArticlePut',
   async function (props, { rejectWithValue }) {
     try {
@@ -83,12 +84,12 @@ export const fetchArticlePut = createAsyncThunk<IArticle, Props, { rejectValue: 
       )
       return response.data
     } catch (e) {
-      return rejectWithValue([(e as Error).message, (e as Error).name])
+      return rejectWithValue({ message: (e as Error).message.toString(), name: (e as Error).name.toString() })
     }
   }
 )
 
-export const fetchLikeArticle = createAsyncThunk<IArticle, Props, { rejectValue: string[] }>(
+export const fetchLikeArticle = createAsyncThunk<IArticle, Props, { rejectValue: IError }>(
   'articles/fetchLikeArticle',
   async function (props, { rejectWithValue }) {
     try {
@@ -101,12 +102,12 @@ export const fetchLikeArticle = createAsyncThunk<IArticle, Props, { rejectValue:
       )
       return response.data.article
     } catch (e) {
-      return rejectWithValue([(e as Error).message, (e as Error).name])
+      return rejectWithValue({ message: (e as Error).message.toString(), name: (e as Error).name.toString() })
     }
   }
 )
 
-export const fetchUnLikeArticle = createAsyncThunk<IArticle, Props, { rejectValue: string[] }>(
+export const fetchUnLikeArticle = createAsyncThunk<IArticle, Props, { rejectValue: IError }>(
   'articles/fetchUnLikeArticle',
   async function (props, { rejectWithValue }) {
     try {
@@ -115,7 +116,7 @@ export const fetchUnLikeArticle = createAsyncThunk<IArticle, Props, { rejectValu
       })
       return response.data.article
     } catch (e) {
-      return rejectWithValue([(e as Error).message, (e as Error).name])
+      return rejectWithValue({ message: (e as Error).message.toString(), name: (e as Error).name.toString() })
     }
   }
 )

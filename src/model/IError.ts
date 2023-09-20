@@ -3,8 +3,6 @@ export interface IErrors {
 }
 
 export interface IError {
-  AxiosError: {
-    message?: string
-    name?: string
-  }
+  message?: string
+  name?: string
 }

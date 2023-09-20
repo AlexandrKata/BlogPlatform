@@ -49,9 +49,11 @@ export const Article = ({ item, markdown = false, onClickLike = undefined }: Pro
               <div className={classes.article__wrapperLikes}>
                 <button
                   className={
-                    !item?.favorited
-                      ? classes.article__btnLike
-                      : [classes.article__btnLike, classes.article__btnLike__active].join(' ')
+                    user
+                      ? !item?.favorited
+                        ? classes.article__btnLikeUser
+                        : [classes.article__btnLikeUser, classes.article__btnLikeUser__active].join(' ')
+                      : classes.article__btnLikeUnUser
                   }
                   onClick={onClickLike}
                   type="button"

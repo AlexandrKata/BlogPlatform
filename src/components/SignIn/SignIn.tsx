@@ -61,6 +61,7 @@ export const SignIn = () => {
             }
             id="password"
             placeholder="Password"
+            type="password"
           ></input>
           {errors.password || loginErrors.password ? (
             <p className={classes.form__error}>{loginErrors.password || errors.password?.message?.toString()}</p>

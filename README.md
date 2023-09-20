@@ -1,1 +1,1 @@
-https://blog-beige-five-49.vercel.app/
+https://blog-rouge-beta.vercel.app/

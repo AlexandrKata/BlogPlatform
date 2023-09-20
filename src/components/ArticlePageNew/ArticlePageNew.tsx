@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { useAppDispatch, useAppSelector } from '../../hooks'
 import { ArticleForm } from '../ArticleForm'
-import { fetchArticlePost, fetchArticleGet, fetchArticlesGet } from '../../redux/articlesActions'
+import { fetchArticlePost, fetchArticlesGet } from '../../redux/articlesActions'
 
 import classes from './ArticlePageNew.module.scss'
 
@@ -42,15 +42,11 @@ export const ArticlePageNew = () => {
   }
 
   const goNewArticle = async (data: any) => {
-    let article: any
-    await dispatch(fetchArticlePost(data)).then((response) => {
-      article = response?.payload
-    })
-    await dispatch(fetchArticleGet({ slug: article?.slug })).then(() => {
-      navigate(`/articles/${article.slug}`)
-    })
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    await dispatch(fetchArticlesGet({ ...{ offset: 0 }, ...{ token: user?.token } })).then(() => {})
+    await dispatch(fetchArticlePost(data)).then(() => {})
+    await dispatch(fetchArticlesGet({ ...{ offset: 0 }, ...{ token: user?.token } })).then(() => {
+      navigate('/')
+    })
   }
 
   const onSubmit = (data: any) => {

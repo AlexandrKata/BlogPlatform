@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { useAppDispatch, useAppSelector } from '../../hooks'
 import { ArticleForm } from '../ArticleForm'
-import { fetchArticlePut, fetchArticleGet, fetchArticlesGet } from '../../redux/articlesActions'
+import { fetchArticlePut, fetchArticlesGet } from '../../redux/articlesActions'
 
 import classes from './ArticlePageEdit.module.scss'
 
@@ -51,14 +51,11 @@ export const ArticlePageEdit = () => {
   }
 
   const goPutArticle = async (data: any) => {
-    const slug = article?.slug
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     await dispatch(fetchArticlePut(formatData(data))).then(() => {})
-    await dispatch(fetchArticleGet({ slug: slug })).then(() => {
-      navigate(`/articles/${slug}`)
+    await dispatch(fetchArticlesGet({ offset: 0 })).then(() => {
+      navigate('/')
     })
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    await dispatch(fetchArticlesGet({ offset: 0 })).then(() => {})
   }
 
   const onSubmit = (data: any) => {

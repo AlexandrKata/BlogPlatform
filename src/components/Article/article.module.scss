@@ -28,7 +28,14 @@
         }
     }
 
-    &__btnLike {
+    &__btnLikeUnUser {
+        border: none;
+        background: url('../../img/like.svg');
+        width: 16px;
+        height: 16px;
+    }
+    
+    &__btnLikeUser {
         border: none;
         background: url('../../img/like.svg');
         width: 16px;
